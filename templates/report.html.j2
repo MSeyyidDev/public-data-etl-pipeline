@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ETL Pipeline Report</title>
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js" charset="utf-8"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; margin: 2rem auto; max-width: 1100px; color: #1f2937; }
+  h1 { border-bottom: 2px solid #4f46e5; padding-bottom: .4rem; }
+  h2 { color: #4f46e5; margin-top: 2rem; }
+  .stats { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
+  .stat { background: #f3f4f6; padding: .8rem 1.2rem; border-radius: .5rem; min-width: 130px; }
+  .stat .label { font-size: .8rem; color: #6b7280; text-transform: uppercase; }
+  .stat .value { font-size: 1.4rem; font-weight: 700; }
+  table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+  th, td { text-align: left; padding: .4rem .6rem; border-bottom: 1px solid #e5e7eb; font-size: .9rem; }
+  th { background: #eef2ff; }
+  .pass { color: #047857; font-weight: 700; }
+  .fail { color: #b91c1c; font-weight: 700; }
+  .empty { color: #9ca3af; font-style: italic; }
+</style>
+</head>
+<body>
+<h1>Public-Data ETL Pipeline Report</h1>
+<p>Auto-generated summary of the ingested datasets, derived features and data-quality checks.</p>
+
+<h2>Weather</h2>
+{% if weather.present %}
+<div class="stats">
+  <div class="stat"><div class="label">Rows</div><div class="value">{{ "{:,}".format(weather.rows) }}</div></div>
+  <div class="stat"><div class="label">Cities</div><div class="value">{{ weather.cities }}</div></div>
+  <div class="stat"><div class="label">From</div><div class="value">{{ weather.time_min }}</div></div>
+  <div class="stat"><div class="label">To</div><div class="value">{{ weather.time_max }}</div></div>
+</div>
+{{ weather.fig_temp | safe }}
+{{ weather.fig_precip | safe }}
+{% else %}<p class="empty">No weather data loaded yet.</p>{% endif %}
+
+<h2>Traffic</h2>
+{% if traffic.present %}
+<div class="stats">
+  <div class="stat"><div class="label">Rows</div><div class="value">{{ "{:,}".format(traffic.rows) }}</div></div>
+  <div class="stat"><div class="label">Sensors</div><div class="value">{{ traffic.sensors }}</div></div>
+  <div class="stat"><div class="label">From</div><div class="value">{{ traffic.time_min }}</div></div>
+  <div class="stat"><div class="label">To</div><div class="value">{{ traffic.time_max }}</div></div>
+</div>
+{{ traffic.fig_hour | safe }}
+{{ traffic.fig_road | safe }}
+{% else %}<p class="empty">No traffic data loaded yet.</p>{% endif %}
+
+<h2>Sales</h2>
+{% if sales.present %}
+<div class="stats">
+  <div class="stat"><div class="label">Rows</div><div class="value">{{ "{:,}".format(sales.rows) }}</div></div>
+  <div class="stat"><div class="label">Products</div><div class="value">{{ sales.products }}</div></div>
+  <div class="stat"><div class="label">Total revenue</div><div class="value">{{ "{:,.0f}".format(sales.total_revenue) }}</div></div>
+  <div class="stat"><div class="label">From</div><div class="value">{{ sales.time_min }}</div></div>
+  <div class="stat"><div class="label">To</div><div class="value">{{ sales.time_max }}</div></div>
+</div>
+{{ sales.fig_rev | safe }}
+{{ sales.fig_cat | safe }}
+{% else %}<p class="empty">No sales data loaded yet.</p>{% endif %}
+
+<h2>Quality Checks</h2>
+{% if quality.present %}
+<p><strong>{{ quality.passed }}</strong> passed / <strong>{{ quality.failed }}</strong> failed</p>
+<table>
+  <thead><tr><th>Source</th><th>Check</th><th>Passed</th><th>Details</th></tr></thead>
+  <tbody>
+  {% for c in quality.checks %}
+    <tr>
+      <td>{{ c.source }}</td>
+      <td>{{ c.check_name }}</td>
+      <td class="{{ 'pass' if c.passed else 'fail' }}">{{ 'PASS' if c.passed else 'FAIL' }}</td>
+      <td>{{ c.details }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}<p class="empty">No quality report stored yet. Run <code>etl quality-report</code> first.</p>{% endif %}
+
+</body>
+</html>
