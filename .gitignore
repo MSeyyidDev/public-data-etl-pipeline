@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ETL outputs (regenerable)
+output/*.db
+output/*.parquet
+output/*.csv
+output/*.json
+output/*.html
+!output/.gitkeep
+
+# Env
+.env
