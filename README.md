@@ -1,5 +1,9 @@
 # public-data-etl-pipeline
 
+[![CI](https://github.com/MSeyyidDev/public-data-etl-pipeline/actions/workflows/ci.yml/badge.svg)](https://github.com/MSeyyidDev/public-data-etl-pipeline/actions/workflows/ci.yml)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 A clean, object-oriented ETL pipeline written in Python 3.13 that ingests, validates,
 transforms and stores three independent datasets to a typed SQLite warehouse and
 parquet snapshots. Synthetic generators stand in for real public data feeds so the
