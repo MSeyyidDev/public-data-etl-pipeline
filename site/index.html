@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Public Data ETL Pipeline Demo</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        color: #172026;
+        background: #f6f8fb;
+      }
+      body {
+        margin: 0;
+      }
+      header,
+      main {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 32px 20px;
+      }
+      header {
+        padding-top: 44px;
+      }
+      h1 {
+        margin: 0 0 10px;
+        font-size: 38px;
+        line-height: 1.08;
+      }
+      p {
+        color: #52606d;
+        line-height: 1.6;
+      }
+      .kpis {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+        margin: 28px 0;
+      }
+      .kpi,
+      .panel {
+        background: #ffffff;
+        border: 1px solid #dde4ee;
+        border-radius: 8px;
+        padding: 18px;
+      }
+      .kpi strong {
+        display: block;
+        font-size: 26px;
+        color: #0f1720;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 16px;
+      }
+      .panel h2 {
+        margin: 0 0 8px;
+        font-size: 18px;
+      }
+      code {
+        background: #edf2f7;
+        border-radius: 4px;
+        padding: 2px 5px;
+      }
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+        padding: 10px 14px;
+        color: #ffffff;
+        background: #0f766e;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 650;
+      }
+      ul {
+        padding-left: 20px;
+        color: #52606d;
+        line-height: 1.7;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Public Data ETL Pipeline</h1>
+      <p>
+        A reproducible Python ETL demo that extracts synthetic public-data feeds,
+        validates row-level quality rules, writes SQLite and Parquet outputs, and
+        produces an HTML report for analyst review.
+      </p>
+      <a class="cta" href="report.html">Open generated report</a>
+    </header>
+    <main>
+      <section class="kpis" aria-label="Pipeline summary">
+        <div class="kpi"><strong>3</strong> domains: weather, traffic, sales</div>
+        <div class="kpi"><strong>105k+</strong> generated fact rows</div>
+        <div class="kpi"><strong>5</strong> loaders and quality modules</div>
+        <div class="kpi"><strong>offline</strong> deterministic demo data</div>
+      </section>
+      <section class="grid">
+        <article class="panel">
+          <h2>What reviewers should inspect</h2>
+          <ul>
+            <li><code>etl/pipeline.py</code> for orchestration and stage metrics.</li>
+            <li><code>etl/quality/checker.py</code> for reusable validation rules.</li>
+            <li><code>etl/cli.py</code> for the Typer command surface.</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h2>How to reproduce</h2>
+          <p>
+            Run <code>etl run-all</code>, <code>etl quality-report</code>, and
+            <code>etl report</code>. The generated HTML report is copied into
+            this static site for GitHub Pages.
+          </p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

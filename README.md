@@ -4,11 +4,15 @@
 [![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A clean, object-oriented ETL pipeline written in Python 3.13 that ingests, validates,
+A clean, object-oriented ETL pipeline written in Python 3.11+ that ingests, validates,
 transforms and stores three independent datasets to a typed SQLite warehouse and
 parquet snapshots. Synthetic generators stand in for real public data feeds so the
 project always runs offline and reproducibly, while the architecture is a drop-in
 fit for real public APIs (NOAA, Open-Meteo, Eurostat, city open-data portals).
+
+**Static demo:** the generated analyst report is published from `site/` via
+GitHub Pages. After enabling Pages for the repository, the demo URL will be
+`https://mseyyiddev.github.io/public-data-etl-pipeline/`.
 
 ## Why this project
 
@@ -214,13 +218,17 @@ with a real Open-Meteo client would only require implementing `extract() ->
 pd.DataFrame` with the same column contract; the transformer, quality checker
 and loaders are unchanged.
 
-## Screenshots
+## Demo output
 
-`output/report.html` (after `etl run-all && etl quality-report && etl report`):
+`site/report.html` is a committed static copy of the generated Plotly report.
+Regenerate it with:
 
-- ![Pipeline summary placeholder](docs/screenshot-summary.png)
-- ![Quality report placeholder](docs/screenshot-quality.png)
-- ![HTML report placeholder](docs/screenshot-report.png)
+```bash
+etl run-all
+etl quality-report
+etl report
+cp output/report.html site/report.html
+```
 
 ## License
 

@@ -28,5 +28,9 @@ output/*.json
 output/*.html
 !output/.gitkeep
 
+# Static demo site for GitHub Pages
+!site/
+!site/**
+
 # Env
 .env
